@@ -13,13 +13,13 @@ userRouter.get("/", (req, res) => {
 userRouter.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
   bcrypt.hash(password, 5, async function (err, hash) {
-    if (err) return req.send({ message: "something went wrong", status: 0 });
+    if (err) return req.send({ message: "something went wrong" });
     try {
       let user = new UserModel({ name, email, password: hash });
       await user.save();
-      res.send({ message: "User Created", status: 1 });
+      res.send({ message: "User Created"});
     } catch (error) {
-      res.send({ message: err.message, status: 0 });
+      res.send({ message: err.message });
     }
   });
 });
@@ -44,17 +44,17 @@ userRouter.post("/login", async (req, res) => {
           res.send({
             message: "User Loggedin Successfully",
             token: token,
-            status: 1,
+            
           });
         } else {
-          res.send({ message: "Invalid userid or password", status: 0 });
+          res.send({ message: "Invalid userid or password" });
         }
       });
     } else {
-      res.send({ message: "User does not exists", status: 0 });
+      res.send({ message: "User does not exists" });
     }
   } catch (error) {
-    res.send({ message: error.message, status: 0 });
+    res.send({ message: error.message });
   }
 });
 
