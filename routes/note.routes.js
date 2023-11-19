@@ -10,7 +10,7 @@ noteRouter.use(authenticator)
 
 noteRouter.get("/",async (req,res)=>{
      let token= req.headers.authorization
-     jwt.verify(token,"sdfrgth",async (err,decode)=>{
+     jwt.verify(token,SECRET_KEY,async (err,decode)=>{
         try{
             let data = await NoteModel.find({user:decode.userId})
             res.send({data:data,message:"Success",status:1})
